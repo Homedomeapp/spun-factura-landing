@@ -291,7 +291,7 @@
             border: 1px solid var(--color-border);
             border-radius: 16px;
             padding: 36px;
-            max-width: 520px;
+            max-width: 620px;
             margin: 0 auto;
             box-shadow: var(--shadow-lg);
             position: relative;
@@ -363,8 +363,14 @@
             gap: 12px;
         }
 
-        @media (max-width: 500px) {
-            .form-row {
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row, .form-row-3 {
                 grid-template-columns: 1fr;
             }
         }
@@ -453,7 +459,7 @@
             background: var(--color-bg-alt);
             border: 1px solid var(--color-border);
             border-radius: 20px;
-            font-size: 0.8125rem;
+            font-size: 0.8rem;
             color: var(--color-text-muted);
             transition: all 0.2s;
         }
@@ -466,6 +472,69 @@
 
         .chip-checkbox:hover span {
             border-color: var(--color-primary-light);
+        }
+
+        .chip-checkbox.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .chip-checkbox.disabled span {
+            background: var(--color-bg-alt);
+            border-color: var(--color-border);
+            color: var(--color-text-muted);
+        }
+
+        .servicios-container {
+            margin-top: 8px;
+            min-height: 40px;
+        }
+
+        .servicios-container.hidden {
+            display: none;
+        }
+
+        .servicios-hint {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+
+        .servicios-counter {
+            font-size: 0.7rem;
+            color: var(--color-primary-dark);
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .legal-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px;
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .legal-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--color-primary);
+        }
+
+        .legal-checkbox label {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        .legal-checkbox a {
+            color: var(--color-primary-dark);
+            text-decoration: underline;
         }
 
         .btn-submit {
@@ -484,13 +553,19 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 8px;
+            margin-top: 12px;
         }
 
         .btn-submit:hover {
             background: var(--color-primary-dark);
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
+        }
+
+        .btn-submit:disabled {
+            background: var(--color-border);
+            cursor: not-allowed;
+            transform: none;
         }
 
         .form-footer {
@@ -878,6 +953,15 @@
             text-decoration: none;
         }
 
+        .footer-links {
+            margin-top: 8px;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            font-size: 0.75rem;
+        }
+
         /* Success State */
         .success-message {
             display: none;
@@ -999,13 +1083,16 @@
 
                     <div class="hero-photos">
                         <div class="hero-photo">
-                            <img src="images/happy-woman-portrait-and-professional-engineer-in-2023-11-27-05-27-52-utc.jpg" alt="Profesional de la construcción">
+                            <img src="images/professional-construction-worker-using-a-drill-2024-10-11-02-22-22-utc.jpg" alt="Profesional de la construcción">
                         </div>
                         <div class="hero-photo">
-                            <img src="images/professional-construction-worker-using-a-drill-2024-10-11-02-22-22-utc.jpg" alt="Trabajador con taladro">
+                            <img src="images/happy-woman-portrait-and-professional-engineer-in-2023-11-27-05-27-52-utc.jpg" alt="Ingeniera profesional">
                         </div>
                         <div class="hero-photo">
                             <img src="images/plumber-man-fixing-kitchen-sink-2023-11-27-04-58-03-utc.jpg" alt="Fontanero">
+                        </div>
+                        <div class="hero-photo">
+                            <img src="images/young-woman-architect-sitting-at-the-desk-indoors-2024-10-18-09-35-51-utc.jpg" alt="Arquitecta">
                         </div>
                         <div class="hero-photo">
                             <img src="images/carpenter-at-work-in-his-workshop-2023-11-27-05-00-27-utc.jpg" alt="Carpintero">
@@ -1087,6 +1174,7 @@
                         </div>
                         
                         <form id="leadForm">
+                            <!-- Datos de contacto -->
                             <div class="form-group">
                                 <div class="form-row">
                                     <div>
@@ -1115,24 +1203,63 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Categoría principal -->
                             <div class="form-group">
-                                <div class="form-row">
+                                <label class="form-label">¿A qué te dedicas? *</label>
+                                <select name="categoria" id="categoriaSelect" required>
+                                    <option value="">Selecciona tu actividad principal...</option>
+                                    <option value="Dirección y gestión técnica">Dirección y gestión técnica</option>
+                                    <option value="Reformas integrales y obra mayor">Reformas integrales, estructura y obra mayor</option>
+                                    <option value="Albañilería y obra base">Albañilería y obra base</option>
+                                    <option value="Envolvente y rehabilitación">Envolvente y rehabilitación de edificios</option>
+                                    <option value="Instalaciones eléctricas y domótica">Instalaciones eléctricas y domótica</option>
+                                    <option value="Fontanería, saneamiento y gas">Fontanería, saneamiento y gas</option>
+                                    <option value="Climatización y aerotermia">Climatización, calefacción y aerotermia</option>
+                                    <option value="Energías renovables">Energías renovables y servicios energéticos</option>
+                                    <option value="Carpintería y cerramientos">Carpintería, cerramientos y vidrio</option>
+                                    <option value="Acabados y pintura">Acabados, pintura y decoración</option>
+                                    <option value="Artesanía premium">Artesanía y acabados premium</option>
+                                    <option value="Exterior y paisajismo">Exterior, paisajismo y jardín</option>
+                                    <option value="Alquiler de maquinaria">Alquiler de maquinaria y equipos</option>
+                                    <option value="Mantenimiento">Mantenimiento y servicios auxiliares</option>
+                                </select>
+                            </div>
+
+                            <!-- Subservicios dinámicos -->
+                            <div class="form-group">
+                                <label class="form-label">Especialidades principales <span class="servicios-counter" id="serviciosCounter"></span></label>
+                                <p class="servicios-hint">Selecciona hasta 3 opciones</p>
+                                <div class="servicios-container" id="serviciosContainer">
+                                    <p style="color: var(--color-text-muted); font-size: 0.85rem;">Selecciona primero tu actividad principal</p>
+                                </div>
+                            </div>
+
+                            <!-- Datos de negocio -->
+                            <div class="form-group">
+                                <div class="form-row-3">
                                     <div>
-                                        <label class="form-label">¿A qué te dedicas? *</label>
-                                        <select name="actividad" required>
+                                        <label class="form-label">Tamaño equipo *</label>
+                                        <select name="tamano_equipo" required>
                                             <option value="">Selecciona...</option>
-                                            <option value="reformas">Reformas integrales</option>
-                                            <option value="construccion">Construcción / Obra nueva</option>
-                                            <option value="instalaciones">Instalaciones (electricidad, fontanería, clima)</option>
-                                            <option value="pintura">Pintura / Acabados</option>
-                                            <option value="carpinteria">Carpintería / Cerrajería</option>
-                                            <option value="rehabilitacion">Rehabilitación / SATE</option>
-                                            <option value="mantenimiento">Mantenimiento</option>
-                                            <option value="otro">Otro</option>
+                                            <option value="Autónomo">Autónomo sin empleados</option>
+                                            <option value="2-5 personas">2–5 personas</option>
+                                            <option value="6-10 personas">6–10 personas</option>
+                                            <option value="+10 personas">+10 personas</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="form-label">Facturas al mes</label>
+                                        <label class="form-label">Cliente principal</label>
+                                        <select name="tipo_cliente">
+                                            <option value="">Selecciona...</option>
+                                            <option value="Particular">Particular</option>
+                                            <option value="Empresa">Empresa / Comercio</option>
+                                            <option value="Promotor">Promotor / Constructor</option>
+                                            <option value="Mixto">Mixto</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Facturas/mes</label>
                                         <select name="volumen">
                                             <option value="">Selecciona...</option>
                                             <option value="1-10">1 – 10</option>
@@ -1143,59 +1270,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Tipos de trabajo principales</label>
-                                <div class="checkbox-grid">
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="banos">
-                                        <span>Baños</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="cocinas">
-                                        <span>Cocinas</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="reformas_integrales">
-                                        <span>Reformas integrales</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="electricidad">
-                                        <span>Electricidad</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="fontaneria">
-                                        <span>Fontanería</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="climatizacion">
-                                        <span>Clima / Calefacción</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="pintura">
-                                        <span>Pintura</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="carpinteria">
-                                        <span>Carpintería</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="albanileria">
-                                        <span>Albañilería</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="cerrajeria">
-                                        <span>Cerrajería</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="fotovoltaica">
-                                        <span>Fotovoltaica</span>
-                                    </label>
-                                    <label class="chip-checkbox">
-                                        <input type="checkbox" name="servicios" value="sate">
-                                        <span>SATE / Aislamiento</span>
-                                    </label>
-                                </div>
-                            </div>
+
+                            <!-- Ticket y software actual -->
                             <div class="form-group">
                                 <div class="form-row">
                                     <div>
@@ -1213,19 +1289,31 @@
                                         <label class="form-label">¿Cómo facturas ahora?</label>
                                         <select name="facturacion_actual">
                                             <option value="">Selecciona...</option>
-                                            <option value="excel">Excel / Word</option>
-                                            <option value="holded">Holded</option>
-                                            <option value="quipu">Quipu</option>
-                                            <option value="contasimple">Contasimple</option>
-                                            <option value="factorial">Factorial</option>
-                                            <option value="gestoria">Lo lleva mi gestoría</option>
-                                            <option value="otro">Otro software</option>
-                                            <option value="nada">No facturo aún</option>
+                                            <option value="Excel">Excel / Word</option>
+                                            <option value="Holded">Holded</option>
+                                            <option value="Quipu">Quipu</option>
+                                            <option value="Contasimple">Contasimple</option>
+                                            <option value="Factorial">Factorial</option>
+                                            <option value="Gestoría">Lo lleva mi gestoría</option>
+                                            <option value="Otro">Otro software</option>
+                                            <option value="Ninguno">No facturo aún</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Interés sostenibilidad -->
+                            <div class="form-group">
+                                <label class="form-label">¿Te interesa que SPUN te ayude a reducir desperdicios y consumos en tus obras?</label>
+                                <select name="interes_sostenibilidad">
+                                    <option value="">Selecciona...</option>
+                                    <option value="Sí, mucho">Sí, mucho</option>
+                                    <option value="Sí, algo">Sí, algo</option>
+                                    <option value="No es prioridad">No es prioridad ahora</option>
+                                </select>
+                            </div>
                             
+                            <!-- Checkbox llamada -->
                             <div class="checkbox-group">
                                 <input type="checkbox" name="permiso_llamada" id="permiso_llamada">
                                 <label for="permiso_llamada">
@@ -1233,7 +1321,15 @@
                                 </label>
                             </div>
 
-                            <button type="submit" class="btn-submit">
+                            <!-- Checkbox legal RGPD simplificado -->
+                            <div class="legal-checkbox">
+                                <input type="checkbox" name="acepta_privacidad" id="acepta_privacidad" required>
+                                <label for="acepta_privacidad">
+                                    He leído y acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a>.
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-submit" id="submitBtn">
                                 Reservar mi plaza
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1395,10 +1491,222 @@
                 SPUN Factura · Madrid, España · 
                 <a href="mailto:hola@spun.es">hola@spun.es</a>
             </p>
+            <div class="footer-links">
+                <a href="/privacidad">Política de Privacidad</a>
+                <a href="/aviso-legal">Aviso Legal</a>
+                <a href="/cookies">Cookies</a>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Taxonomía de subservicios por categoría
+        const subserviciosPorCategoria = {
+            "Dirección y gestión técnica": [
+                "Arquitecto/a",
+                "Arquitecto técnico / Aparejador",
+                "Project Manager de obra",
+                "Topógrafo/a",
+                "Auditor energético certificado",
+                "Técnico de certificación energética (CEE)",
+                "Consultor en sostenibilidad",
+                "Especialista en certificaciones (LEED, BREEAM, Passivhaus)"
+            ],
+            "Reformas integrales y obra mayor": [
+                "Empresa constructora integral",
+                "Reforma integral de vivienda",
+                "Reforma parcial (redistribución, ampliaciones)",
+                "Reforma de local comercial / oficinas",
+                "Rehabilitación de edificio residencial",
+                "Demolición controlada",
+                "Estructuras / hormigonado / forjados",
+                "Cubiertas y tejados"
+            ],
+            "Albañilería y obra base": [
+                "Albañil oficial",
+                "Revestimientos cerámicos (solados y alicatados)",
+                "Tabiques, trasdosados y recrecidos",
+                "Falsos techos (yeso, pladur)",
+                "Microcemento y pavimentos continuos",
+                "Impermeabilización de terrazas"
+            ],
+            "Envolvente y rehabilitación": [
+                "Instalador de SATE",
+                "Fachada ventilada",
+                "Rehabilitación integral de fachada",
+                "Aislamiento térmico interior",
+                "Impermeabilización de cubiertas",
+                "Rehabilitación energética de edificios"
+            ],
+            "Instalaciones eléctricas y domótica": [
+                "Electricista de baja tensión",
+                "Reforma de instalación eléctrica",
+                "Cuadros eléctricos y protecciones",
+                "Iluminación interior / técnica",
+                "Iluminación exterior",
+                "Boletines y legalización",
+                "Integrador de domótica (KNX)",
+                "Integrador smart home (WiFi / IoT)",
+                "Redes y cableado estructurado"
+            ],
+            "Fontanería, saneamiento y gas": [
+                "Fontanero oficial",
+                "Instalación completa fontanería",
+                "Sustitución de bajantes / colectores",
+                "Instalador de gas certificado",
+                "Revisión instalaciones de gas"
+            ],
+            "Climatización y aerotermia": [
+                "Aire acondicionado (split, conductos)",
+                "Sistemas VRV/VRF",
+                "Instalación de calderas",
+                "Suelo radiante / refrescante",
+                "Aerotermia / bombas de calor",
+                "Climatización industrial / comercial",
+                "Ventilación mecánica controlada (VMC)"
+            ],
+            "Energías renovables": [
+                "Instalador fotovoltaico residencial",
+                "Fotovoltaico industrial / grandes cubiertas",
+                "Solar térmica (ACS)",
+                "Sistemas híbridos",
+                "Calderas de biomasa / pellets",
+                "Mini eólica",
+                "Empresa de servicios energéticos (ESCO)",
+                "Consultor en optimización energética"
+            ],
+            "Carpintería y cerramientos": [
+                "Carpintero ebanista",
+                "Carpintería interior (puertas, armarios)",
+                "Cocinas a medida",
+                "Carpintería exterior aluminio",
+                "Carpintería exterior PVC",
+                "Carpintería exterior madera",
+                "Ventanas alta eficiencia / Passivhaus",
+                "Cerrajero / automatismos",
+                "Cristalero / mamparas / barandillas"
+            ],
+            "Acabados y pintura": [
+                "Pintor decorador",
+                "Alta decoración / estucos",
+                "Empapelador",
+                "Escayolista y molduras",
+                "Suelos laminados / tarima / parquet",
+                "Pavimentos vinílicos / técnicos",
+                "Decorador / interiorista"
+            ],
+            "Artesanía premium": [
+                "Carpintero ebanista de lujo",
+                "Muebles de diseño exclusivo",
+                "Cerrajero artístico / forja",
+                "Vidriero de diseño artístico",
+                "Ceramista de autor",
+                "Escultor en piedra o madera",
+                "Tapicero de alta gama",
+                "Interiorista viviendas premium"
+            ],
+            "Exterior y paisajismo": [
+                "Paisajista diseñador",
+                "Arquitecto de exteriores",
+                "Jardinero profesional",
+                "Biojardinería / xerojardinería",
+                "Poda en altura",
+                "Césped natural o artificial",
+                "Riego automático",
+                "Iluminación exterior LED",
+                "Pérgolas bioclimáticas / porches",
+                "Constructor de piscinas y spas",
+                "Pavimentos exteriores"
+            ],
+            "Alquiler de maquinaria": [
+                "Alquiler maquinaria de obra",
+                "Alquiler herramientas especializadas",
+                "Alquiler equipos de medición",
+                "Alquiler equipos de limpieza técnica",
+                "Transporte de maquinaria"
+            ],
+            "Mantenimiento": [
+                "Mantenimiento integral de edificios",
+                "Mantenimiento climatización / calderas",
+                "Mantenimiento instalaciones fotovoltaicas",
+                "Mantenimiento jardines y piscinas",
+                "Limpieza post-obra",
+                "Manitas / pequeñas reparaciones"
+            ]
+        };
+
+        const MAX_SERVICIOS = 3;
+        let serviciosSeleccionados = [];
+
+        // Renderizar subservicios cuando cambia la categoría
+        document.getElementById('categoriaSelect').addEventListener('change', function() {
+            const categoria = this.value;
+            const container = document.getElementById('serviciosContainer');
+            const counter = document.getElementById('serviciosCounter');
+            
+            serviciosSeleccionados = [];
+            updateCounter();
+            
+            if (!categoria || !subserviciosPorCategoria[categoria]) {
+                container.innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.85rem;">Selecciona primero tu actividad principal</p>';
+                return;
+            }
+            
+            const servicios = subserviciosPorCategoria[categoria];
+            container.innerHTML = '<div class="checkbox-grid">' + 
+                servicios.map(servicio => `
+                    <label class="chip-checkbox" data-servicio="${servicio}">
+                        <input type="checkbox" name="subservicios" value="${servicio}">
+                        <span>${servicio}</span>
+                    </label>
+                `).join('') + 
+            '</div>';
+            
+            // Añadir listeners a los nuevos checkboxes
+            container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', handleServicioChange);
+            });
+        });
+
+        function handleServicioChange(e) {
+            const checkbox = e.target;
+            const value = checkbox.value;
+            
+            if (checkbox.checked) {
+                if (serviciosSeleccionados.length >= MAX_SERVICIOS) {
+                    checkbox.checked = false;
+                    return;
+                }
+                serviciosSeleccionados.push(value);
+            } else {
+                serviciosSeleccionados = serviciosSeleccionados.filter(s => s !== value);
+            }
+            
+            updateCounter();
+            updateCheckboxStates();
+        }
+
+        function updateCounter() {
+            const counter = document.getElementById('serviciosCounter');
+            counter.textContent = `(${serviciosSeleccionados.length}/${MAX_SERVICIOS})`;
+        }
+
+        function updateCheckboxStates() {
+            const container = document.getElementById('serviciosContainer');
+            const checkboxes = container.querySelectorAll('.chip-checkbox');
+            
+            checkboxes.forEach(label => {
+                const cb = label.querySelector('input');
+                if (serviciosSeleccionados.length >= MAX_SERVICIOS && !cb.checked) {
+                    label.classList.add('disabled');
+                    cb.disabled = true;
+                } else {
+                    label.classList.remove('disabled');
+                    cb.disabled = false;
+                }
+            });
+        }
+
         // Form submission
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -1406,31 +1714,31 @@
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
             
-            // Capturar servicios seleccionados (checkboxes múltiples)
-            const serviciosChecked = this.querySelectorAll('input[name="servicios"]:checked');
-            const servicios = Array.from(serviciosChecked).map(cb => cb.value);
-            data.servicios = servicios.join(', ');
+            // Capturar subservicios seleccionados
+            data.subservicios = serviciosSeleccionados.join(', ');
             
             // Add metadata
             data.timestamp = new Date().toISOString();
-            data.source = 'landing_page_v3';
-            data.page_variant = 'spun_inter_final';
+            data.source = 'landing_page_v5';
+            data.page_variant = 'taxonomia_completa';
             data.permiso_llamada = formData.get('permiso_llamada') === 'on' ? 'Sí' : 'No';
+            data.acepta_privacidad = formData.get('acepta_privacidad') === 'on' ? 'Sí' : 'No';
             data.utm_source = new URLSearchParams(window.location.search).get('utm_source') || 'direct';
             data.utm_medium = new URLSearchParams(window.location.search).get('utm_medium') || '';
             data.utm_campaign = new URLSearchParams(window.location.search).get('utm_campaign') || '';
             
             // TODO: Replace with your Make.com webhook URL
-            const WEBHOOK_URL = 'https://hook.eu2.make.com/v73az8m16yumk4tm4vo6bl3arui5nlzp';
+            const WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
             
             try {
                 console.log('Lead captured:', data);
                 
-                await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-                });
+                // Uncomment when webhook is ready:
+                // await fetch(WEBHOOK_URL, {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(data)
+                // });
                 
                 // Show success
                 document.getElementById('formContainer').classList.add('hidden');
@@ -1440,8 +1748,9 @@
                 if (typeof gtag !== 'undefined') {
                     gtag('event', 'sign_up', { 
                         method: 'landing_page',
-                        actividad: data.actividad,
-                        volumen: data.volumen
+                        categoria: data.categoria,
+                        volumen: data.volumen,
+                        tamano_equipo: data.tamano_equipo
                     });
                 }
                 
