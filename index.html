@@ -432,6 +432,42 @@
             line-height: 1.45;
         }
 
+        .checkbox-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip-checkbox {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .chip-checkbox input {
+            display: none;
+        }
+
+        .chip-checkbox span {
+            padding: 6px 12px;
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            transition: all 0.2s;
+        }
+
+        .chip-checkbox input:checked + span {
+            background: var(--color-bg-section);
+            border-color: var(--color-primary);
+            color: var(--color-primary-dark);
+        }
+
+        .chip-checkbox:hover span {
+            border-color: var(--color-primary-light);
+        }
+
         .btn-submit {
             width: 100%;
             padding: 14px 24px;
@@ -1068,8 +1104,16 @@
                                 <input type="email" name="email" placeholder="tu@email.com" required>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Teléfono</label>
-                                <input type="tel" name="telefono" placeholder="Para avisarte cuando esté listo">
+                                <div class="form-row">
+                                    <div>
+                                        <label class="form-label">Teléfono</label>
+                                        <input type="tel" name="telefono" placeholder="Para avisarte cuando esté listo">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Código postal *</label>
+                                        <input type="text" name="codigo_postal" placeholder="Ej: 28001" maxlength="5" pattern="[0-9]{5}" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-row">
@@ -1100,18 +1144,86 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">¿Cómo facturas ahora?</label>
-                                <select name="facturacion_actual">
-                                    <option value="">Selecciona...</option>
-                                    <option value="excel">Excel / Word</option>
-                                    <option value="holded">Holded</option>
-                                    <option value="quipu">Quipu</option>
-                                    <option value="contasimple">Contasimple</option>
-                                    <option value="factorial">Factorial</option>
-                                    <option value="gestoria">Lo lleva mi gestoría</option>
-                                    <option value="otro">Otro software</option>
-                                    <option value="nada">No facturo aún</option>
-                                </select>
+                                <label class="form-label">Tipos de trabajo principales</label>
+                                <div class="checkbox-grid">
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="banos">
+                                        <span>Baños</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="cocinas">
+                                        <span>Cocinas</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="reformas_integrales">
+                                        <span>Reformas integrales</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="electricidad">
+                                        <span>Electricidad</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="fontaneria">
+                                        <span>Fontanería</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="climatizacion">
+                                        <span>Clima / Calefacción</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="pintura">
+                                        <span>Pintura</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="carpinteria">
+                                        <span>Carpintería</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="albanileria">
+                                        <span>Albañilería</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="cerrajeria">
+                                        <span>Cerrajería</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="fotovoltaica">
+                                        <span>Fotovoltaica</span>
+                                    </label>
+                                    <label class="chip-checkbox">
+                                        <input type="checkbox" name="servicios" value="sate">
+                                        <span>SATE / Aislamiento</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div>
+                                        <label class="form-label">Ticket medio por trabajo</label>
+                                        <select name="ticket_medio">
+                                            <option value="">Selecciona...</option>
+                                            <option value="<1000">Menos de 1.000€</option>
+                                            <option value="1000-5000">1.000€ – 5.000€</option>
+                                            <option value="5000-15000">5.000€ – 15.000€</option>
+                                            <option value="15000-50000">15.000€ – 50.000€</option>
+                                            <option value=">50000">Más de 50.000€</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label">¿Cómo facturas ahora?</label>
+                                        <select name="facturacion_actual">
+                                            <option value="">Selecciona...</option>
+                                            <option value="excel">Excel / Word</option>
+                                            <option value="holded">Holded</option>
+                                            <option value="quipu">Quipu</option>
+                                            <option value="contasimple">Contasimple</option>
+                                            <option value="factorial">Factorial</option>
+                                            <option value="gestoria">Lo lleva mi gestoría</option>
+                                            <option value="otro">Otro software</option>
+                                            <option value="nada">No facturo aún</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="checkbox-group">
@@ -1293,6 +1405,11 @@
             
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
+            
+            // Capturar servicios seleccionados (checkboxes múltiples)
+            const serviciosChecked = this.querySelectorAll('input[name="servicios"]:checked');
+            const servicios = Array.from(serviciosChecked).map(cb => cb.value);
+            data.servicios = servicios.join(', ');
             
             // Add metadata
             data.timestamp = new Date().toISOString();
