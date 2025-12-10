@@ -1728,17 +1728,16 @@
             data.utm_campaign = new URLSearchParams(window.location.search).get('utm_campaign') || '';
             
             // TODO: Replace with your Make.com webhook URL
-            const WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
+            const WEBHOOK_URL = 'https://hook.eu2.make.com/v73az8m16yumk4tm4vo6bl3arui5nlzp';
             
             try {
                 console.log('Lead captured:', data);
                 
-                // Uncomment when webhook is ready:
-                // await fetch(WEBHOOK_URL, {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(data)
-                // });
+                await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+                });
                 
                 // Show success
                 document.getElementById('formContainer').classList.add('hidden');
